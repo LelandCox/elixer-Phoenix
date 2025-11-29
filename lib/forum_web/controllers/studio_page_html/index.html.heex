@@ -1,0 +1,45 @@
+<.header>
+  Listing Studios
+  <:actions>
+    <.link href={~p"/studios/new"}>
+      <.button>New Studio</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<div class="overflow-x-auto">
+  <table class="table w-full">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Production Companies</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for studio <- @studios do %>
+        <tr>
+          <td><%= studio.name %></td>
+          <td>
+            <%= if Enum.any?(studio.production_companies) do %>
+              <div class="flex flex-wrap gap-1">
+                <%= for company <- studio.production_companies do %>
+                  <span class="badge badge-ghost badge-sm"><%= company.name %></span>
+                <% end %>
+              </div>
+            <% else %>
+              <span class="text-base-content/50 italic">None</span>
+            <% end %>
+          </td>
+          <td>
+            <div class="flex gap-2">
+              <.link href={~p"/studios/#{studio}"} class="btn btn-ghost btn-xs">Show</.link>
+              <.link href={~p"/studios/#{studio}/edit"} class="btn btn-ghost btn-xs">Edit</.link>
+              <.link href={~p"/studios/#{studio}"} method="delete" data-confirm="Are you sure?" class="btn btn-ghost btn-xs text-error">Delete</.link>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

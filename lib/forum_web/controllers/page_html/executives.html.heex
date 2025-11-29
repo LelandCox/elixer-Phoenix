@@ -1,0 +1,51 @@
+<.header>
+  Listing Executives
+  <:actions>
+    <.link href={~p"/executives/new"}>
+      <.button>New Executive</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<div class="overflow-x-auto">
+  <table class="table w-full">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Studio</th>
+        <th>Production Company</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for executive <- @executives do %>
+        <tr>
+          <td><%= executive.name %></td>
+          <td><%= executive.title || "-" %></td>
+          <td>
+            <%= if executive.studio do %>
+              <%= executive.studio.name %>
+            <% else %>
+              <span class="text-base-content/50 italic">None</span>
+            <% end %>
+          </td>
+          <td>
+            <%= if executive.production_company do %>
+              <%= executive.production_company.name %>
+            <% else %>
+              <span class="text-base-content/50 italic">None</span>
+            <% end %>
+          </td>
+          <td>
+            <div class="flex gap-2">
+              <.link href={~p"/executives/#{executive}"} class="btn btn-ghost btn-xs">Show</.link>
+              <.link href={~p"/executives/#{executive}/edit"} class="btn btn-ghost btn-xs">Edit</.link>
+              <.link href={~p"/executives/#{executive}"} method="delete" data-confirm="Are you sure?" class="btn btn-ghost btn-xs text-error">Delete</.link>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

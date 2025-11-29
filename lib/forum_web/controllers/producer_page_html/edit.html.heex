@@ -1,0 +1,8 @@
+<.header>
+  Edit Producer <%= @producer.id %>
+  <:subtitle>Use this form to manage producer records in your database.</:subtitle>
+</.header>
+
+<.producer_form changeset={@changeset} action={~p"/producers/#{@producer}"} studios={@studios} production_companies={@production_companies} />
+
+<.back navigate={~p"/producers"}>Back to producers</.back>

@@ -1,0 +1,13 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+  <.input field={f[:name]} type="text" label="Name" />
+  
+  <.input field={f[:executive_ids]} type="select" label="Executives" options={Enum.map(@executives, &{&1.name, &1.id})} multiple={true} />
+  
+  <.input field={f[:producer_ids]} type="select" label="Producers" options={Enum.map(@producers, &{&1.name, &1.id})} multiple={true} />
+  <:actions>
+    <.button>Save Studio</.button>
+  </:actions>
+</.simple_form>

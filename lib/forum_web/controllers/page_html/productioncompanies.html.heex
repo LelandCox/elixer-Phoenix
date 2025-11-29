@@ -1,0 +1,48 @@
+<.header>
+  Listing Production Companies
+  <:actions>
+    <.link href={~p"/productioncompanies/new"}>
+      <.button>New Production Company</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<div class="overflow-x-auto">
+  <table class="table w-full">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Studio</th>
+        <th>Financing</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for production_company <- @productioncompanies do %>
+        <tr>
+          <td><%= production_company.name %></td>
+          <td>
+            <%= if production_company.studio do %>
+              <%= production_company.studio.name %>
+            <% else %>
+              <span class="text-base-content/50 italic">None</span>
+            <% end %>
+          </td>
+          <td>
+            <%= if production_company.financing do %>
+              <span class="badge badge-success">Yes</span>
+            <% else %>
+              <span class="badge badge-ghost">No</span>
+            <% end %>
+          </td>
+          <td>
+            <div class="flex gap-2">
+              <.link href={~p"/productioncompanies/#{production_company}/edit"} class="btn btn-ghost btn-xs">Edit</.link>
+              <.link href={~p"/productioncompanies/#{production_company}"} method="delete" data-confirm="Are you sure?" class="btn btn-ghost btn-xs text-error">Delete</.link>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

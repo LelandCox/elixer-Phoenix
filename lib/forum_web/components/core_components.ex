@@ -270,10 +270,75 @@ defmodule ForumWeb.CoreComponents do
   end
 
   # Helper used by inputs to generate form errors
-  defp error(assigns) do
+  @doc """
+  Renders a simple form.
+
+  ## Examples
+
+      <.simple_form for={@form} phx-change="validate" phx-submit="save">
+        <.input field={@form[:email]} label="Email"/>
+        <.input field={@form[:username]} label="Username" />
+        <:actions>
+          <.button>Save</.button>
+        </:actions>
+      </.simple_form>
+  """
+  attr :for, :any, required: true, doc: "the datastructure for the form"
+  attr :as, :any, default: nil, doc: "the server side parameter to collect all input under"
+
+  attr :rest, :global,
+    include: ~w(autocomplete name rel action enctype method novalidate target multipart),
+    doc: "the arbitrary HTML attributes to apply to the form tag"
+
+  slot :inner_block, required: true
+  slot :actions, doc: "the slot for form actions, such as a submit button"
+
+  def simple_form(assigns) do
     ~H"""
-    <p class="mt-1.5 flex gap-2 items-center text-sm text-error">
-      <.icon name="hero-exclamation-circle" class="size-5" />
+    <.form :let={f} for={@for} as={@as} {@rest}>
+      <div class="space-y-8 bg-base-100 p-6 rounded-lg shadow-md border border-base-200">
+        {render_slot(@inner_block, f)}
+        <div :for={action <- @actions} class="mt-2 flex items-center justify-between gap-6">
+          {render_slot(action, f)}
+        </div>
+      </div>
+    </.form>
+    """
+  end
+
+  @doc """
+  Renders a back navigation link.
+
+  ## Examples
+
+      <.back navigate={~p"/posts"}>Back to posts</.back>
+  """
+  attr :navigate, :any, required: true
+  slot :inner_block, required: true
+
+  def back(assigns) do
+    ~H"""
+    <div class="mt-16">
+      <.link
+        navigate={@navigate}
+        class="text-sm font-semibold leading-6 text-base-content hover:text-base-content/80"
+      >
+        <.icon name="hero-arrow-left-solid" class="h-3 w-3" />
+        {render_slot(@inner_block)}
+      </.link>
+    </div>
+    """
+  end
+
+  @doc """
+  Generates a generic error message.
+  """
+  slot :inner_block, required: true
+
+  def error(assigns) do
+    ~H"""
+    <p class="mt-3 flex gap-3 text-sm leading-6 text-error">
+      <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" />
       {render_slot(@inner_block)}
     </p>
     """

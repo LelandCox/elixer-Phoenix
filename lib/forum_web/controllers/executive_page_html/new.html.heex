@@ -1,0 +1,8 @@
+<.header>
+  New Executive
+  <:subtitle>Use this form to manage executive records in your database.</:subtitle>
+</.header>
+
+<.executive_form changeset={@changeset} action={~p"/executives"} studios={@studios} production_companies={@production_companies} />
+
+<.back navigate={~p"/executives"}>Back to executives</.back>

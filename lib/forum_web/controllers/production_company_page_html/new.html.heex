@@ -1,0 +1,8 @@
+<.header>
+  New Production Company
+  <:subtitle>Use this form to manage production company records in your database.</:subtitle>
+</.header>
+
+<.production_company_form changeset={@changeset} action={~p"/productioncompanies"} studios={@studios} />
+
+<.back navigate={~p"/productioncompanies"}>Back to production companies</.back>

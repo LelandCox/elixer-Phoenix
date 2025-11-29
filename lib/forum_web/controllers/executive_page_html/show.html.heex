@@ -1,0 +1,18 @@
+<.header>
+  Executive <%= @executive.id %>
+  <:subtitle>This is a executive record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/executives/#{@executive}/edit"}>
+      <.button>Edit executive</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @executive.name %></:item>
+  <:item title="Title"><%= @executive.title %></:item>
+  <:item title="Studio"><%= if @executive.studio, do: @executive.studio.name, else: "None" %></:item>
+  <:item title="Production Company"><%= if @executive.production_company, do: @executive.production_company.name, else: "None" %></:item>
+</.list>
+
+<.back navigate={~p"/executives"}>Back to executives</.back>

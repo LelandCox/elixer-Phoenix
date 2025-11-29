@@ -1,0 +1,48 @@
+<.header>
+  Data Visualizer
+  <:subtitle>Explore connections between Studios, Executives, Producers, and Production Companies.</:subtitle>
+</.header>
+
+<div id="network" style="height: 600px; border: 1px solid lightgray; background-color: #f8f9fa;"></div>
+
+<script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+    var nodes = new vis.DataSet(<%= raw(Jason.encode!(@nodes)) %>);
+    var edges = new vis.DataSet(<%= raw(Jason.encode!(@edges)) %>);
+
+    var container = document.getElementById('network');
+    var data = {
+      nodes: nodes,
+      edges: edges
+    };
+    var options = {
+      nodes: {
+        shape: 'dot',
+        size: 16,
+        font: {
+          size: 14
+        }
+      },
+      groups: {
+        studio: {color: '#FF9900', size: 25}, // Orange
+        executive: {color: '#1098AD', size: 15}, // Cyan
+        producer: {color: '#7F00FF', size: 15}, // Purple
+        production_company: {color: '#00CC00', size: 20} // Green
+      },
+      physics: {
+        forceAtlas2Based: {
+          gravitationalConstant: -26,
+          centralGravity: 0.005,
+          springLength: 230,
+          springConstant: 0.18
+        },
+        maxVelocity: 146,
+        solver: 'forceAtlas2Based',
+        timestep: 0.35,
+        stabilization: {iterations: 150}
+      }
+    };
+    var network = new vis.Network(container, data, options);
+  });
+</script>

@@ -1,0 +1,17 @@
+<.header>
+  Producer <%= @producer.id %>
+  <:subtitle>This is a producer record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/producers/#{@producer}/edit"}>
+      <.button>Edit producer</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @producer.name %></:item>
+  <:item title="Studio"><%= if @producer.studio, do: @producer.studio.name, else: "None" %></:item>
+  <:item title="Production Company"><%= if @producer.production_company, do: @producer.production_company.name, else: "None" %></:item>
+</.list>
+
+<.back navigate={~p"/producers"}>Back to producers</.back>

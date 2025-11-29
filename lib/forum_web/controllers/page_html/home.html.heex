@@ -1,1 +1,175 @@
-<h1>Landing Page</h1>
+<div class="container mx-auto p-4">
+  <h1 class="text-3xl font-bold mb-6">Industry Hub</h1>
+
+  <div role="tablist" class="tabs tabs-lifted">
+    <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Studios" checked />
+    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+      <div class="overflow-x-auto">
+        <table class="table w-full">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Production Companies</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= for studio <- @studios do %>
+              <tr>
+                <td><%= studio.name %></td>
+                <td>
+                  <%= if Enum.any?(studio.production_companies) do %>
+                    <div class="flex flex-wrap gap-1">
+                      <%= for company <- studio.production_companies do %>
+                        <span class="badge badge-ghost badge-sm"><%= company.name %></span>
+                      <% end %>
+                    </div>
+                  <% else %>
+                    <span class="text-base-content/50 italic">None</span>
+                  <% end %>
+                </td>
+                <td>
+                  <div class="flex gap-2">
+                    <.link href={~p"/studios/#{studio}"} class="btn btn-ghost btn-xs">Show</.link>
+                    <.link href={~p"/studios/#{studio}/edit"} class="btn btn-ghost btn-xs">Edit</.link>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Executives" />
+    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+      <div class="overflow-x-auto">
+        <table class="table w-full">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Title</th>
+              <th>Studio</th>
+              <th>Production Company</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= for executive <- @executives do %>
+              <tr>
+                <td><%= executive.name %></td>
+                <td><%= executive.title || "-" %></td>
+                <td>
+                  <%= if executive.studio do %>
+                    <%= executive.studio.name %>
+                  <% else %>
+                    <span class="text-base-content/50 italic">None</span>
+                  <% end %>
+                </td>
+                <td>
+                  <%= if executive.production_company do %>
+                    <%= executive.production_company.name %>
+                  <% else %>
+                    <span class="text-base-content/50 italic">None</span>
+                  <% end %>
+                </td>
+                <td>
+                  <div class="flex gap-2">
+                    <.link href={~p"/executives/#{executive}"} class="btn btn-ghost btn-xs">Show</.link>
+                    <.link href={~p"/executives/#{executive}/edit"} class="btn btn-ghost btn-xs">Edit</.link>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Production Companies" />
+    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+      <div class="overflow-x-auto">
+        <table class="table w-full">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Studio</th>
+              <th>Financing</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= for production_company <- @productioncompanies do %>
+              <tr>
+                <td><%= production_company.name %></td>
+                <td>
+                  <%= if production_company.studio do %>
+                    <%= production_company.studio.name %>
+                  <% else %>
+                    <span class="text-base-content/50 italic">None</span>
+                  <% end %>
+                </td>
+                <td>
+                  <%= if production_company.financing do %>
+                    <span class="badge badge-success">Yes</span>
+                  <% else %>
+                    <span class="badge badge-ghost">No</span>
+                  <% end %>
+                </td>
+                <td>
+                  <div class="flex gap-2">
+                    <.link href={~p"/productioncompanies/#{production_company}"} class="btn btn-ghost btn-xs">Show</.link>
+                    <.link href={~p"/productioncompanies/#{production_company}/edit"} class="btn btn-ghost btn-xs">Edit</.link>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Producers" />
+    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+      <div class="overflow-x-auto">
+        <table class="table w-full">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Studio</th>
+              <th>Production Company</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= for producer <- @producers do %>
+              <tr>
+                <td><%= producer.name %></td>
+                <td>
+                  <%= if producer.studio do %>
+                    <%= producer.studio.name %>
+                  <% else %>
+                    <span class="text-base-content/50 italic">None</span>
+                  <% end %>
+                </td>
+                <td>
+                  <%= if producer.production_company do %>
+                    <%= producer.production_company.name %>
+                  <% else %>
+                    <span class="text-base-content/50 italic">None</span>
+                  <% end %>
+                </td>
+                <td>
+                  <div class="flex gap-2">
+                    <.link href={~p"/producers/#{producer}"} class="btn btn-ghost btn-xs">Show</.link>
+                    <.link href={~p"/producers/#{producer}/edit"} class="btn btn-ghost btn-xs">Edit</.link>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

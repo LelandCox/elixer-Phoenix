@@ -1,0 +1,45 @@
+<.header>
+  Production Company <%= @production_company.id %>
+  <:subtitle>This is a production company record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/productioncompanies/#{@production_company}/edit"}>
+      <.button>Edit production company</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @production_company.name %></:item>
+  <:item title="Financing"><%= @production_company.financing %></:item>
+  <:item title="Studio"><%= if @production_company.studio, do: @production_company.studio.name, else: "None" %></:item>
+</.list>
+
+<div class="mt-8">
+  <h2 class="text-lg font-semibold mb-4">Associations</h2>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="card bg-base-100 shadow-md border border-base-200">
+      <div class="card-body">
+        <h3 class="card-title text-base">Executives</h3>
+        <ul class="list-disc list-inside">
+          <%= for executive <- @production_company.executives do %>
+            <li><%= executive.name %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-md border border-base-200">
+      <div class="card-body">
+        <h3 class="card-title text-base">Producers</h3>
+        <ul class="list-disc list-inside">
+          <%= for producer <- @production_company.producers do %>
+            <li><%= producer.name %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<.back navigate={~p"/productioncompanies"}>Back to production companies</.back>

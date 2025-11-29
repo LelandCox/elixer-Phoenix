@@ -1,0 +1,54 @@
+<.header>
+  Studio <%= @studio.id %>
+  <:subtitle>This is a studio record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/studios/#{@studio}/edit"}>
+      <.button>Edit studio</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @studio.name %></:item>
+</.list>
+
+<div class="mt-8">
+  <h2 class="text-lg font-semibold mb-4">Associations</h2>
+  
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="card bg-base-100 shadow-md border border-base-200">
+      <div class="card-body">
+        <h3 class="card-title text-base">Executives</h3>
+        <ul class="list-disc list-inside">
+          <%= for executive <- @studio.executives do %>
+            <li><%= executive.name %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-md border border-base-200">
+      <div class="card-body">
+        <h3 class="card-title text-base">Producers</h3>
+        <ul class="list-disc list-inside">
+          <%= for producer <- @studio.producers do %>
+            <li><%= producer.name %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-md border border-base-200">
+      <div class="card-body">
+        <h3 class="card-title text-base">Production Companies</h3>
+        <ul class="list-disc list-inside">
+          <%= for pc <- @studio.production_companies do %>
+            <li><%= pc.name %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<.back navigate={~p"/studios"}>Back to studios</.back>

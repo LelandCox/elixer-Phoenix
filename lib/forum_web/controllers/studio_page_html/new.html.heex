@@ -1,0 +1,8 @@
+<.header>
+  New Studio
+  <:subtitle>Use this form to manage studio records in your database.</:subtitle>
+</.header>
+
+<.studio_form changeset={@changeset} action={~p"/studios"} executives={@executives} producers={@producers} />
+
+<.back navigate={~p"/studios"}>Back to studios</.back>
